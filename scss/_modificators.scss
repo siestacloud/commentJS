@@ -1,0 +1,21 @@
+.m-under-line {
+  &::after {
+    content: "d";
+    border-bottom: 1px solid $dark;
+  }
+}
+
+.m-inactive {
+  display: none;
+  pointer-events: none;
+  cursor: default;
+  color: $grey;
+}
+
+.m-favorites {
+  color: red;
+  p {
+    color: red;
+  }
+}
+

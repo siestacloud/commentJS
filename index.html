@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="/css/min/style.min.css">
+  <title>Comment JS</title>
+</head>
+
+<body>
+  <div class="wrapper">
+    <header class="header"></header>
+    <main class="main">
+      <div class="main__item">
+
+        <section class="template">
+          <div class="template__item"></div>
+          <div class="template__item"></div>
+          <div class="template__item"></div>
+          <div class="template__item"></div>
+          <div class="template__item"></div>
+          <div class="template__item"></div>
+          <div class="template__item"></div>
+          <div class="template__item"></div>
+          <div class="template__item"></div>
+        </section>
+        <section class="comments">
+          <div class="comments__line"></div>
+          <div class="comments__menu menu">
+            <div class="menu__row">
+              <div class="menu__column"> Комментарии <span>(80)</span></div>
+              <div class="menu__column mod-button">
+                <div class="menu__sort">
+                  <p class="menu__text">По дате</p>
+                  <span class="menu__arrow">▴</span>
+                </div>
+                <div class="tooltip m-position m-pos-setting">
+                  <input class="custom-radio" name="level" type="radio" id="j-sort-date" value="По дате" checked="checked">
+                  <label for="j-sort-date">По дате</label>
+                  <input class="custom-radio" name="level" type="radio" id="j-sort-evaluate" value="По количеству оценок">
+                  <label for="j-sort-evaluate">По количеству оценок</label>
+                  <input class="custom-radio" name="level" type="radio" id="j-sort-answer" value="По количеству ответов">
+                  <label for="j-sort-answer">По количеству ответов</label>
+                </div>
+              </div>
+              <div class="menu__column j-favorites-show"> Избранное <img src="img/heart_icon.png" alt=""></div>
+            </div>
+
+
+            <div class="comments__new new">
+              <div class="new__user user">
+                <img src="img/user1.png" alt="">
+                <span>Максим Авдеенко</span>
+              </div>
+              <div class="new__wrapper">
+                <div class="new__input">
+                  <span>Макс. 1000 символов</span>
+                  <textarea name="msg" maxlength="1000" rows="2" class="new__textarea"
+                    placeholder="Введите текст сообщения..."></textarea>
+                </div>
+                <button type="submit" class="new__btn j-btn-send-comment">Отправить </button>
+              </div>
+            </div>
+
+
+            <div class="comments__items j-new-comment">
+
+            </div>
+        </section>
+      </div>
+    </main>
+    <footer class="footer"></footer>
+  </div>
+  <script type="module" src="src/ts/app.js"></script>
+
+</body>
+
+</html>

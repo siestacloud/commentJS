@@ -1,0 +1,94 @@
+// <СТИЛИ ДЛЯ СТРАНИЦЫ О ФОНДЕ >
+
+// main занимает 1fr от страницы (футер прибит к низу)
+.main {
+  grid-area: main;
+  display: grid;
+  grid-template: 1fr / minmax(15px, 1fr) minmax(10px, 1052px) minmax(15px, 1fr);
+  &__item {
+    grid-area: 1/2;
+  }
+}
+// result обертка над всеми страницами реализует отступы от краев экрана
+.template {
+  display: grid;
+  grid-template: repeat(6, 80px) / repeat(2, 1fr);
+  grid-template-areas:
+    "hero1 hero2"
+    "hero3 hero4"
+    "hero5 hero6"
+    "hero7 hero8"
+    "hero9 hero9"
+    "hero9 hero9";
+  gap: 15px;
+
+  &__item:nth-child(1) {
+    grid-area: hero1;
+  }
+  &__item:nth-child(2) {
+    grid-area: hero2;
+  }
+  &__item:nth-child(3) {
+    grid-area: hero3;
+  }
+  &__item:nth-child(4) {
+    grid-area: hero4;
+  }
+  &__item:nth-child(5) {
+    grid-area: hero5;
+  }
+  &__item:nth-child(6) {
+    grid-area: hero6;
+  }
+  &__item:nth-child(7) {
+    grid-area: hero7;
+  }
+  &__item:nth-child(8) {
+    grid-area: hero8;
+  }
+  &__item:nth-child(9) {
+    grid-area: hero9;
+  }
+  &__item {
+    background-color: $grey;
+  }
+
+  // </ОСНОВНОЙ БЛОК>
+
+  @media (max-width: 767px) {
+    grid-template: repeat(3, 50px) / 1fr;
+
+    grid-template-areas:
+      "hero1"
+      "hero3"
+      "hero5";
+
+    &__item:nth-child(1) {
+      grid-area: hero1;
+    }
+    &__item:nth-child(2) {
+      display: none;
+    }
+    &__item:nth-child(3) {
+      grid-area: hero3;
+    }
+    &__item:nth-child(4) {
+      display: none;
+    }
+    &__item:nth-child(5) {
+      grid-area: hero5;
+    }
+    &__item:nth-child(6) {
+      display: none;
+    }
+    &__item:nth-child(7) {
+      display: none;
+    }
+    &__item:nth-child(8) {
+      display: none;
+    }
+    &__item:nth-child(9) {
+      display: none;
+    }
+  }
+}

@@ -1,0 +1,209 @@
+.comments {
+  // grid-area: 2/2;
+
+  &__line {
+    margin-top: 15px;
+    border-bottom: 3px solid $grey;
+  }
+
+  // блок с меню (сортировка и избранное)
+  &__menu {
+    .menu {
+      &__row {
+        margin: 15px 0px 50px 0px;
+        @include f(flex-start, center, row);
+        gap: 10px;
+        flex-wrap: wrap;
+
+      }
+
+      &__column {
+        font-weight: 500;
+        font-size: 18px;
+        line-height: 24px;
+        // color: $grey;
+
+        img {
+          width: 20px;
+          border: 2px solid $grey;
+          border-radius: 50px;
+        }
+        span {
+          color: $grey;
+          font-size: 22px;
+        }
+
+        &:first-child {
+          color: $dark;
+          font-size: 22px;
+          font-weight: 600;
+
+          padding-bottom: 2px;
+          border-bottom: 2px solid $dark;
+        }
+        &:last-child {
+          cursor: pointer;
+          @include f(flex-start, center, row);
+          gap: 5px;
+          &:hover {
+            color: red;
+          }
+        }
+      }
+      &__sort{
+        @include f(center,center,row);
+        gap: 5px;
+
+        
+      }
+      &__text{
+        &:hover{
+
+          
+        }
+      }
+    }
+
+  }
+
+  // новый коментарий
+  &__new {
+    margin-top: 15px;
+  }
+
+  &__items {
+  }
+
+  &__item {
+    margin-top: 15px;
+  }
+
+  &__user {
+    @include f(flex-start, center, row);
+    gap: 15px;
+    img {
+      border-radius: 50px;
+    }
+
+    .wrap {
+      @include f(space-between, center, row);
+      width: 100%;
+    }
+
+    span {
+      font-weight: 500;
+      font-size: 18px;
+      line-height: 22px;
+      color: #122ac0;
+    }
+    .date {
+      color: $grey;
+      font-size: 15px;
+      font-weight: 400;
+    }
+  }
+  &__text {
+    display: block;
+    padding-top: 15px;
+
+    font-weight: 400;
+    font-size: 18px;
+    line-height: 22px;
+    color: $dark;
+  }
+
+  &__btns {
+    @include f(flex-start, center, row);
+    gap: 15px;
+    font-family: "Inter";
+    font-style: normal;
+    font-weight: 400;
+    font-size: 18px;
+    line-height: 22px;
+    /* identical to box height */
+
+    color: rgb(93, 93, 93);
+  }
+
+  &__answer {
+    cursor: pointer;
+    @include f(flex-start, center, row);
+    gap: 4px;
+    img {
+      width: 20px;
+    }
+  }
+
+  &__greate {
+    @include f(flex-start, center, row);
+    gap: 4px;
+    img {
+      width: 20px;
+    }
+    cursor: pointer;
+  }
+
+  &__like {
+    @include f(center, center, column);
+    gap: 1px;
+    font-weight: 600;
+    font-size: 20px;
+    color: $dark;
+    .min {
+      text-align: center;
+      width: 22px;
+      height: 22px;
+      border-radius: 50px;
+      background-color: #e2e2e2;
+      position: relative;
+      span {
+        position: absolute;
+        top: -1px;
+        left: 8px;
+        color: red;
+      }
+    }
+    .count {
+      color: rgb(137, 214, 49);
+    }
+    .plus {
+      text-align: center;
+      width: 22px;
+      height: 22px;
+      border-radius: 50px;
+      background-color: #e2e2e2;
+      position: relative;
+      span {
+        position: absolute;
+        top: 0px;
+        left: 6px;
+        color: rgb(137, 214, 49);
+      }
+    }
+  }
+
+  // desktop
+  @media (min-width: 767px) {
+    position: relative;
+    &__user {
+      position: absolute;
+      @include f(flex-start, flex-start, row);
+      img {
+      }
+      span {
+      }
+    }
+    &__wrapper {
+      display: block;
+      gap: 30px;
+      margin-left: 75px;
+    }
+    &__text {
+      padding-top: 30px;
+    }
+    &__like {
+      @include f(center, center, row);
+      gap: 7px;
+    }
+  }
+}
