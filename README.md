@@ -44,15 +44,16 @@
 
 
 ```
-git clone  https://
-cd 
+git clone  https://github.com/siestacloud/commentJS.git
+cd commentJS/ 
 
-npm init
+// устанавливаем зависимости
+npm install
 or 
-yarn init
+yarn install
 
+// компилируем .js файлы проекта
 tsc
-
 ```
 Инструкции для запуска сервера в локальном окружении для разработки и тестирования
 
@@ -60,7 +61,6 @@ tsc
 yarn run start
 or
 npm run start
-```
 ---
 
 
