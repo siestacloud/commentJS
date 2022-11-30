@@ -2,15 +2,15 @@ import Events from "./events/events.js";
 
 // методы кдасса view отображают шаблоны html элементов с нужными данными.
 class Views extends Events {
-  #privateMainPage
   constructor() {
     super()
-    this.#privateMainPage
   }
-  setPrivateMainPage(mainPage) { this.#privateMainPage = mainPage }
-  DisplayMain() {
+  DisplayMain(): void {
     this.InitTextAreaBigger()
-    this.InitBtnSortComments(document.querySelector(".j-new-comment"))
+
+    let fieldForNewComment: HTMLInputElement | null = document.querySelector(".j-new-comment")
+    if (!fieldForNewComment) {return}
+    this.InitBtnSortComments(fieldForNewComment)
     this.InitBtnComment()
   }
 }
