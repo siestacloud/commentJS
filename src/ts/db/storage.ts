@@ -25,6 +25,7 @@ class Storage {
         privateName: string
         privateLikes: number
         privateCommentLink: number
+        privateCommentName: string
         privateFavorite: boolean
         privateCreateAt: string
         privateTimestamp: number
@@ -67,6 +68,7 @@ class Storage {
             answer.SetPrivateCreateAt(ans.privateCreateAt)
             answer.SetPrivateTimestamp(ans.privateTimestamp)
             answer.SetPrivateCommentLink(ans.privateCommentLink)
+            answer.SetPrivateCommentName(ans.privateCommentName)
             // console.log("!");
             answers.push(answer)
 

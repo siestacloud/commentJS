@@ -14,7 +14,6 @@
         @include f(flex-start, center, row);
         gap: 10px;
         flex-wrap: wrap;
-
       }
 
       &__column {
@@ -46,24 +45,19 @@
           @include f(flex-start, center, row);
           gap: 5px;
           &:hover {
-            color: red;
+            color: #6081ee;
           }
         }
       }
-      &__sort{
-        @include f(center,center,row);
+      &__sort {
+        @include f(center, center, row);
         gap: 5px;
-
-        
       }
-      &__text{
-        &:hover{
-
-          
+      &__text {
+        &:hover {
         }
       }
     }
-
   }
 
   // новый коментарий
@@ -91,11 +85,18 @@
     }
 
     span {
-      font-weight: 500;
-      font-size: 18px;
+      font-weight: 600;
+      font-size: 19px;
       line-height: 22px;
       color: #122ac0;
     }
+
+    .m-answerto {
+      color: $grey;
+      font-size: 17px;
+
+    }
+
     .date {
       color: $grey;
       font-size: 15px;
@@ -132,6 +133,10 @@
     img {
       width: 20px;
     }
+    &:hover{
+      color: #6081ee;
+
+    }
   }
 
   &__greate {
@@ -141,6 +146,10 @@
       width: 20px;
     }
     cursor: pointer;
+    &:hover{
+      color: #6081ee;
+
+    }
   }
 
   &__like {
@@ -160,7 +169,7 @@
         position: absolute;
         top: -1px;
         left: 8px;
-        color: red;
+        color: #6081ee;
       }
     }
     .count {

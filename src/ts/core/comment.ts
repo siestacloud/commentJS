@@ -142,6 +142,7 @@ class Comment {
         privateName: string
         privateLikes: number
         privateCommentLink: number
+        privateCommentName: string
         privateFavorite: boolean
         privateCreateAt: string
         privateTimestamp: number
@@ -179,6 +180,7 @@ class Comment {
           answer.SetPrivateLikes(ans.privateLikes)
           answer.SetPrivateFavorite(ans.privateFavorite)
           answer.SetPrivateCommentLink(ans.privateCommentLink) 
+          answer.SetPrivateCommentName(ans.privateCommentName) 
           answers.push(answer)
         });
         saveComment.SetPrivateAnswers(answers)
@@ -213,7 +215,7 @@ class Comment {
     let tBtnShowAnswerField = <HTMLInputElement>tbtnField.querySelector(".j-btn-show-fields-for-answer");
     tBtnShowAnswerField.addEventListener('click', () => {
 
-      answerShow.PublicDisplayFieldsForAnswer(<HTMLInputElement>tBtnShowAnswerField.parentElement, this.privateUnic)
+      answerShow.PublicDisplayFieldsForAnswer(<HTMLInputElement>tBtnShowAnswerField.parentElement, this.privateUnic,this.privateName)
     });
   }
 

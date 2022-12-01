@@ -34,7 +34,7 @@
   
 }
 .mod-button:hover{
-  color: red;
+  color: #6081ee;
   .tooltip{
     opacity: 1;
     transform: translateY(15px);
@@ -83,7 +83,7 @@
 
 /* стили для радиокнопки, находящейся в фокусе */
 .custom-radio:focus+label::before {
-  box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+  box-shadow: 0 0 0 0.2rem rgba#6081ee;
 }
 
 /* стили для радиокнопки, находящейся в фокусе и не находящейся в состоянии checked */
@@ -93,8 +93,9 @@
 
 /* стили для радиокнопки, находящейся в состоянии checked */
 .custom-radio:checked+label::before {
-  border-color: #0b76ef;
-  background-color: #0b76ef;
+  
+  border-color: #6081ee;
+  background-color: #6081ee;
   background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='-4 -4 8 8'%3e%3ccircle r='3' fill='%23fff'/%3e%3c/svg%3e");
 }
 

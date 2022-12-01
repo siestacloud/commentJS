@@ -9,6 +9,8 @@ class Answer {
   private privateLikes: number
   private privateFavorite: boolean
   private privateCommentLink: number
+  private privateCommentName: string
+
 
   constructor() {
     this.privateText
@@ -20,6 +22,7 @@ class Answer {
     this.privateFavorite
     this.privateCreateAt
     this.privateCommentLink
+    this.privateCommentName
   }
 
   SetPrivateName(v: string) { this.privateName = v }
@@ -31,6 +34,7 @@ class Answer {
   SetPrivateLikes(v: number) { this.privateLikes = v }
   SetPrivateFavorite(v: boolean) { this.privateFavorite = v }
   SetPrivateCommentLink(v: number) { this.privateCommentLink = v }
+  SetPrivateCommentName(v: string) { this.privateCommentName = v }
 
 
   GetPrivateName() { return this.privateName }
@@ -42,9 +46,10 @@ class Answer {
   GetPrivateLikes() { return this.privateLikes }
   GetPrivateFavorite() { return this.privateFavorite }
   GetPrivateCommentLink() { return this.privateCommentLink }
+  GetPrivateCommentName() { return this.privateCommentName }
 
   //? PublicDisplayFieldsForAnswer рендер поля ввода и кнопки отправки ответа на коментарий 
-  PublicDisplayFieldsForAnswer(innerHTMLElement: HTMLInputElement, commentUnic: number) {
+  PublicDisplayFieldsForAnswer(innerHTMLElement: HTMLInputElement, commentUnic: number,commentName:string) {
     let wrapper = document.createElement('div')
     innerHTMLElement.after(wrapper)
     const newInput = `
@@ -72,7 +77,7 @@ class Answer {
       if (!textAreaElement.value) { return }                    //* обработка пустого поля ввода
       let inputHtmlField = <HTMLInputElement>document.querySelector(".j-answer-input")
       inputHtmlField.remove();                                  //* удаляю форму ввода ответа
-      this.PuplicSetAnswer(textAreaElement.value, commentUnic)  //* заполняю ответ данными и привязывую его к комментарию
+      this.PuplicSetAnswer(textAreaElement.value, commentUnic,commentName)  //* заполняю ответ данными и привязывую его к комментарию
       console.log(this.privateCommentLink);
       this.PuplicDisplayAnswer(wrapper)                         //* рендер коментария
       this.PublicSaveAnswer()
@@ -92,6 +97,8 @@ class Answer {
       <img src="${this.privateIcon}" alt="">
       <div class="comments__wrap">
         <span>${this.privateName}</span>
+        <img style="width:20px;"src="img/arrow-grey.png" alt="">
+        <span class="m-answerto">${this.privateCommentName}</span>
         <span class="date">${this.privateCreateAt}</span>
       </div>
     </div>
@@ -100,8 +107,6 @@ class Answer {
         <span>${this.privateText}</span>
       </div>
       <div class="comments__btns">
-        
-        
         <div class="comments__like">
           <p id="dis" class="min"><span>-</span></p>
           <p id="count" class="count">${this.privateLikes}</p>
@@ -115,9 +120,10 @@ class Answer {
   }
 
 
-  PuplicSetAnswer(text: string, commentUnic: number) {
+  PuplicSetAnswer(text: string, commentUnic: number, commentName:string) {
     console.log(commentUnic);
     this.privateCommentLink = commentUnic
+    this.privateCommentName = commentName
     this.privateUnic = Math.random()
     this.privateTimestamp = Date.now()
     this.privateText = text
@@ -146,7 +152,7 @@ class Answer {
       privateIcon: string
       privateName: string
       privateLikes: number
-      privateAnswers: Answer[] | null;
+      privateAnswers: Answer[];
       privateFavorite: boolean
       privateCreateAt: string
       privateTimestamp: number
