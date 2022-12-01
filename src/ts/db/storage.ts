@@ -6,7 +6,7 @@ class Storage {
 
   public Load(key: string): Comment[] | null {
 
-    console.log("Storage");
+    // console.log("Storage");
 
     let item = localStorage.getItem(key)
     if (!item) { return null }
@@ -33,9 +33,9 @@ class Storage {
       privateCreateAt: string
       privateTimestamp: number
     }) => {
-      console.log(" элемент из лок", parseItem);
+      // console.log(" элемент из лок", parseItem);
       let c = new Comment()
-      console.log("новый обьект создан ", c);
+      // console.log("новый обьект создан ", c);
 
 
       c.SetPrivateName(parseItem.privateName)
@@ -46,14 +46,14 @@ class Storage {
       c.SetPrivateText(parseItem.privateText)
       c.SetPrivateLikes(parseItem.privateLikes)
       c.SetPrivateFavorite(parseItem.privateFavorite)
-      console.log("основные поля добавлены ", c);
       
       
       if (parseItem.privateAnswers) {
-
+        
+        console.log(parseItem.privateAnswers);
+        let answers: Answer[] = []
         if (parseItem.privateAnswers.length > 0) {
           console.log(" у эл из локал есть ответы ", parseItem.privateAnswers.length);
-          let answers: Answer[] = []
 
           parseItem.privateAnswers.forEach(ans => {
             
@@ -67,16 +67,16 @@ class Storage {
             answer.SetPrivateCreateAt(ans.privateCreateAt)
             answer.SetPrivateTimestamp(ans.privateTimestamp)
             answer.SetPrivateCommentLink(ans.privateCommentLink)
-            console.log("!");
+            // console.log("!");
             answers.push(answer)
 
           });
-          console.log(" ответы для коментария подгружны  ", answers.length);
-          c.SetPrivateAnswers(answers)
+          // console.log(" ответы для коментария подгружны  ", answers.length);
         }
+        c.SetPrivateAnswers(answers)
       }
       comments.push(c)
-      console.log("итоговый массив комментариев обновлен ::: ", comments.length);
+      // console.log("итоговый массив комментариев обновлен ::: ", comments.length);
     });
     return comments
   }

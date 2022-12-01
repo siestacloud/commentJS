@@ -37,6 +37,8 @@ class Events extends Storage {
     let showHtmlSort: HTMLInputElement | null = document.querySelector(`.mod-button`);
 
     let sortRadioBtns: NodeListOf<HTMLElement> | null = document.getElementsByName('level');
+    console.log(sortRadioBtns);
+    
     let sortFavoriteBtn: HTMLInputElement | null = document.querySelector(".j-favorites-show");
 
     if (!sortFavoriteBtn) { return }
@@ -45,7 +47,6 @@ class Events extends Storage {
 
     if (innerHtmlElementSort.innerHTML === "По дате") {                                       //* первичная сортировка но времени при открытии(перезагрузке) страницы
       let comments = this.Load("comments")
-      console.log("PPPPPPPPPP:: ",comments);
       if (!comments) { return }
       this.DisplayComments(comments.sort(function (x: Comment, y: Comment) { return x.GetPrivateTimestamp() - y.GetPrivateTimestamp(); }), innerHtmlElement)
     }
@@ -74,15 +75,20 @@ class Events extends Storage {
     })
 
 
-    sortRadioBtns.forEach(sortRadioBtn => {                                                   //* вешаю обработчики на  кнопки сортировки комментариев
+    for (let index = 0; index < sortRadioBtns.length; index++) {
+      const sortRadioBtn = <HTMLInputElement>sortRadioBtns[index];
+      
+    
+      
       sortRadioBtn.addEventListener('click', () => {
         let comments = this.Load("comments")
+        console.log(comments);
         if (!comments) { return }
-        switch (sortRadioBtn.innerHTML) {
+        switch (sortRadioBtn.value) {
           case "По дате":
             if (!innerHtmlElementSort) { return }
-            
             innerHtmlElementSort.innerHTML = "По дате"
+            console.log("радио кнопка", sortRadioBtn.value);
             this.DisplayComments(comments.sort(function (x, y) { return x.GetPrivateTimestamp() - y.GetPrivateTimestamp(); }), innerHtmlElement)
             break;
           case "По количеству оценок":
@@ -93,14 +99,12 @@ class Events extends Storage {
           case "По количеству ответов":
             if (!innerHtmlElementSort) { return }
             innerHtmlElementSort.innerHTML = "По количеству ответов"
-            // @ts-ignore-start
+            
             this.DisplayComments(comments.sort(function (x, y) { return x.GetPrivateAnswers().length - y.GetPrivateAnswers().length; }), innerHtmlElement)
-            // @ts-ignore-end
             break;
         }
       });
-    })
-
+    }
   }
 
 
@@ -126,7 +130,6 @@ class Events extends Storage {
 
   }
 }
-
 
 
 export default Events

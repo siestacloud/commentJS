@@ -9,7 +9,7 @@ class Comment {
   private privateText: string
   private privateLikes: number
   private privateFavorite: boolean
-  private privateAnswers: Answer[] | null
+  private privateAnswers: Answer[] 
   constructor() {
     this.privateText
     this.privateUnic
