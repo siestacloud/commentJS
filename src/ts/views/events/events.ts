@@ -45,6 +45,7 @@ class Events extends Storage {
 
     if (innerHtmlElementSort.innerHTML === "По дате") {                                       //* первичная сортировка но времени при открытии(перезагрузке) страницы
       let comments = this.Load("comments")
+      console.log("PPPPPPPPPP:: ",comments);
       if (!comments) { return }
       this.DisplayComments(comments.sort(function (x: Comment, y: Comment) { return x.GetPrivateTimestamp() - y.GetPrivateTimestamp(); }), innerHtmlElement)
     }
@@ -80,6 +81,7 @@ class Events extends Storage {
         switch (sortRadioBtn.innerHTML) {
           case "По дате":
             if (!innerHtmlElementSort) { return }
+            
             innerHtmlElementSort.innerHTML = "По дате"
             this.DisplayComments(comments.sort(function (x, y) { return x.GetPrivateTimestamp() - y.GetPrivateTimestamp(); }), innerHtmlElement)
             break;

@@ -7,9 +7,10 @@ class Views extends Events {
   }
   DisplayMain(): void {
     this.InitTextAreaBigger()
-
     let fieldForNewComment: HTMLInputElement | null = document.querySelector(".j-new-comment")
     if (!fieldForNewComment) {return}
+    
+    // console.log("view");
     this.InitBtnSortComments(fieldForNewComment)
     this.InitBtnComment()
   }

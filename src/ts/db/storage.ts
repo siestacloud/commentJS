@@ -4,63 +4,79 @@ import Comment from "../core/comment.js";
 
 class Storage {
 
-  public Load(key: string):Comment[]|null {
+  public Load(key: string): Comment[] | null {
 
+    console.log("Storage");
 
     let item = localStorage.getItem(key)
     if (!item) { return null }
     let parseItems = JSON.parse(item)
-    let comments:Comment[] = []
-    let answers:Answer[] = []
-
-    parseItems.forEach((parseItem:{
-      Unic: number
-      Text: string
-      Icon: string
-      Name: string
-      Likes: number
-      Answers: [{
-        Unic: number
-        Text: string
-        Icon: string
-        Name: string
-        Likes: number
-        CommentLink: number
-        Favorite: boolean
-        CreateAt: string
-        Timestamp: number
-      }] | null;
-      Favorite: boolean
-      CreateAt: string
-      Timestamp: number
+    let comments: Comment[] = []
+    parseItems.forEach((parseItem: {
+      privateUnic: number
+      privateText: string
+      privateIcon: string
+      privateName: string
+      privateLikes: number
+      privateAnswers: [{
+        privateUnic: number
+        privateText: string
+        privateIcon: string
+        privateName: string
+        privateLikes: number
+        privateCommentLink: number
+        privateFavorite: boolean
+        privateCreateAt: string
+        privateTimestamp: number
+      }];
+      privateFavorite: boolean
+      privateCreateAt: string
+      privateTimestamp: number
     }) => {
+      console.log(" элемент из лок", parseItem);
+      let c = new Comment()
+      console.log("новый обьект создан ", c);
+
+
+      c.SetPrivateName(parseItem.privateName)
+      c.SetPrivateUnic(parseItem.privateUnic)
+      c.SetPrivateIcon(parseItem.privateIcon)
+      c.SetPrivateTimestamp(parseItem.privateTimestamp)
+      c.SetPrivateCreateAt(parseItem.privateCreateAt)
+      c.SetPrivateText(parseItem.privateText)
+      c.SetPrivateLikes(parseItem.privateLikes)
+      c.SetPrivateFavorite(parseItem.privateFavorite)
+      console.log("основные поля добавлены ", c);
       
-      let comment = new Comment()
-      comment.SetPrivateName(parseItem.Name)
-      comment.SetPrivateUnic(parseItem.Unic)
-      comment.SetPrivateIcon(parseItem.Icon)
-      comment.SetPrivateTimestamp(parseItem.Timestamp)
-      comment.SetPrivateCreateAt(parseItem.CreateAt)
-      comment.SetPrivateText(parseItem.Text)
-      comment.SetPrivateLikes(parseItem.Likes)
-      comment.SetPrivateFavorite(parseItem.Favorite)
-      if (parseItem.Answers) {
-        parseItem.Answers.forEach(ans => {
-          let answer = new Answer()
-          answer.SetPrivateUnic(ans.Unic)
-          answer.SetPrivateText(ans.Text)
-          answer.SetPrivateIcon(ans.Icon)
-          answer.SetPrivateName(ans.Name)
-          answer.SetPrivateLikes(ans.Likes)
-          answer.SetPrivateFavorite(ans.Favorite)
-          answer.SetPrivateCreateAt(ans.CreateAt)
-          answer.SetPrivateTimestamp(ans.Timestamp)
-          answer.SetPrivateCommentLink(ans.Unic)
-          answers.push(answer)
-        });
+      
+      if (parseItem.privateAnswers) {
+
+        if (parseItem.privateAnswers.length > 0) {
+          console.log(" у эл из локал есть ответы ", parseItem.privateAnswers.length);
+          let answers: Answer[] = []
+
+          parseItem.privateAnswers.forEach(ans => {
+            
+            let answer = new Answer()
+            answer.SetPrivateUnic(ans.privateUnic)
+            answer.SetPrivateText(ans.privateText)
+            answer.SetPrivateIcon(ans.privateIcon)
+            answer.SetPrivateName(ans.privateName)
+            answer.SetPrivateLikes(ans.privateLikes)
+            answer.SetPrivateFavorite(ans.privateFavorite)
+            answer.SetPrivateCreateAt(ans.privateCreateAt)
+            answer.SetPrivateTimestamp(ans.privateTimestamp)
+            answer.SetPrivateCommentLink(ans.privateCommentLink)
+            console.log("!");
+            answers.push(answer)
+
+          });
+          console.log(" ответы для коментария подгружны  ", answers.length);
+          c.SetPrivateAnswers(answers)
+        }
       }
-      comment.SetPrivateAnswers(answers)
-      comments.push(comment)
+      comments.push(c)
+      console.log("итоговый массив комментариев обновлен ::: ", comments.length);
     });
     return comments
   }

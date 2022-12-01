@@ -1,7 +1,5 @@
-import Storage from "../db/storage.js";
 
-
-class Answer extends Storage {
+class Answer {
   private privateName: string
   private privateUnic: number
   private privateIcon: string
@@ -13,7 +11,6 @@ class Answer extends Storage {
   private privateCommentLink: number
 
   constructor() {
-    super()
     this.privateText
     this.privateUnic
     this.privateIcon
@@ -134,32 +131,66 @@ class Answer extends Storage {
       day: "numeric",
       month: "numeric"
     });
-    console.log(this);
   }
 
 
   //privateSaveComment добавляю новый комментарий в массив в localStorage
   PublicSaveAnswer() {
-    let userComments = this.Load("comments")
-    if (!userComments) { return }
-    userComments.forEach(comment => {
-      if (comment.GetPrivateUnic() == this.privateCommentLink) {
-        let answers = <Answer[]>comment.GetPrivateAnswers()
+    console.log("добавляю новый ответ в комментарий в массив в localStorage");
 
-        answers.forEach(answer => {
-          if (answer.GetPrivateUnic() === this.privateUnic) {
-            answers = answers.filter(item => item !== answer)
-          }
-        });
+    let items = <string>localStorage.getItem("comments")
+
+    let userComments = <{
+      privateUnic: number
+      privateText: string
+      privateIcon: string
+      privateName: string
+      privateLikes: number
+      privateAnswers: Answer[] | null;
+      privateFavorite: boolean
+      privateCreateAt: string
+      privateTimestamp: number
+    }[]>JSON.parse(items)
+    if (!userComments) { return }
+
+    console.log("все коментарии в локал стор", userComments);
+
+
+    userComments.forEach(comment => {
+
+      if (comment.privateUnic == this.privateCommentLink) {
+        console.log("коментарий для этого ответа найден: ", comment);
+        let answers = comment.privateAnswers
+        if (answers) {
+          console.log("поле ответы у этого комента не пустое: ", answers);
+          answers.forEach(answer => {
+            if (answer.privateUnic === this.privateUnic) {
+              console.log("Этот ответ уже есть в поле  : ", comment);
+              
+              if (!answers) { return }
+              answers = answers.filter(item => item !== answer)
+              console.log("Удалил ответ из поля с ответами  : ", comment);
+            }
+          });
+          
+          
+        }else{
+
+          answers = []
+        }
+
+        
+        
         answers.push(this)
-        comment.SetPrivateAnswers(answers)
+        comment.privateAnswers = answers
+        console.log("добавил ответ в поля с ответами  : ", comment);
+        console.log("comment.privateAnswers", comment.privateAnswers);
+
       }
     });
-    console.log(JSON.stringify(userComments));
-    this.Save(JSON.stringify(userComments))
+    console.log(userComments);
+    localStorage.setItem("comments", JSON.stringify(userComments))
   }
-
-
 
 
 
@@ -174,12 +205,11 @@ class Answer extends Storage {
 
     let counter = <HTMLInputElement>likeBtnWrapper.querySelector("#count")
     let oldCount = +counter.innerHTML // 0
-    
 
     likeBtn.addEventListener('click', () => {
       let counter = <HTMLInputElement>likeBtnWrapper.querySelector("#count")
       let count = +counter.innerHTML // 0
-  
+
 
       let newCount = +count + 1 //1
       if (count - oldCount == 0 || count - oldCount == -1) {
@@ -189,18 +219,16 @@ class Answer extends Storage {
       }
     })
 
-    
     disLikeBtn.addEventListener('click', () => {
       let counter = <HTMLInputElement>likeBtnWrapper.querySelector("#count")
       let count = +counter.innerHTML // 0
-  
       let newCount = +count - 1 // 0 -1
-      
-      
+
+
       if (count - oldCount == 1 || count - oldCount == 0) {
 
         counter.innerHTML = newCount.toString();
-        
+
         this.privateLikes = newCount
         this.PublicSaveAnswer()
       }

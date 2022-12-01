@@ -1,8 +1,6 @@
-import Storage from "../db/storage.js";
 import Answer from "./answer.js";
 
-
-class Comment extends Storage {
+class Comment {
   private privateName: string
   private privateUnic: number
   private privateIcon: string
@@ -13,7 +11,6 @@ class Comment extends Storage {
   private privateFavorite: boolean
   private privateAnswers: Answer[] | null
   constructor() {
-    super()
     this.privateText
     this.privateUnic
     this.privateIcon
@@ -95,8 +92,12 @@ class Comment extends Storage {
   PuplicDisplayCommentAnswers() {
     let commentHTMLElement = <HTMLInputElement>document.querySelector(`[val="${this.privateUnic}"]`)
     let innerHtmlAnswer = <HTMLInputElement>commentHTMLElement.querySelector(".comments__ans");
-    console.log("innerHtmlAnswer", innerHtmlAnswer);
-    if (!this.privateAnswers) { return }
+    // console.log("innerHtmlAnswer", innerHtmlAnswer);
+    // console.log("this.privateAnswers", this.privateAnswers);
+    if (!this.privateAnswers) { 
+      
+      return
+     }
     this.privateAnswers.forEach(answer => {
       answer.SetPrivateCommentLink(this.GetPrivateUnic())
       answer.PuplicDisplayAnswer(innerHtmlAnswer)
@@ -114,7 +115,7 @@ class Comment extends Storage {
     this.privateIcon = "img/user1.png"
     this.privateName = "Siesta Cloud"
     this.privateLikes = 0
-    this.privateAnswers = null
+    this.privateAnswers = []
     this.privateFavorite = false
     this.privateCreateAt = new Date().toLocaleTimeString('en-GB', {
       hour: "numeric",
@@ -127,28 +128,78 @@ class Comment extends Storage {
 
   //privateSaveComment добавляю новый комментарий в массив в localStorage
   PublicSaveComment() {
-    let userComments = this.Load("comments")
+    let items = <string>localStorage.getItem("comments")
+    let userComments = <{
+      privateUnic: number
+      privateText: string
+      privateIcon: string
+      privateName: string
+      privateLikes: number
+      privateAnswers: {
+        privateUnic: number
+        privateText: string
+        privateIcon: string
+        privateName: string
+        privateLikes: number
+        privateCommentLink: number
+        privateFavorite: boolean
+        privateCreateAt: string
+        privateTimestamp: number
+      }[] ;
+      privateFavorite: boolean
+      privateCreateAt: string
+      privateTimestamp: number
+    }[]>JSON.parse(items)
     if (!userComments) { return }
+    
+    let comments:Comment[] = []
     userComments.forEach(comment => {
-      if (comment.GetPrivateUnic() === this.privateUnic) {
-        if (!userComments) { return }
-        userComments = userComments.filter(item => item !== comment)
+
+      let saveComment = new Comment()
+      saveComment.SetPrivateName(comment.privateName)
+      saveComment.SetPrivateUnic(comment.privateUnic)
+      saveComment.SetPrivateIcon(comment.privateIcon)
+      saveComment.SetPrivateTimestamp(comment.privateTimestamp)
+      saveComment.SetPrivateCreateAt(comment.privateCreateAt)
+      saveComment.SetPrivateText(comment.privateText)
+      saveComment.SetPrivateLikes(comment.privateLikes)
+      saveComment.SetPrivateFavorite(comment.privateFavorite)
+      if (comment.privateAnswers) { // []
+        let answers:Answer[] = []
+        
+        
+        comment.privateAnswers.forEach(ans => {
+          let answer = new Answer()
+          answer.SetPrivateName(ans.privateName)
+          answer.SetPrivateUnic(ans.privateUnic)
+          answer.SetPrivateIcon(ans.privateIcon)
+          answer.SetPrivateTimestamp(ans.privateTimestamp)
+          answer.SetPrivateCreateAt(ans.privateCreateAt)
+          answer.SetPrivateText(ans.privateText)
+          answer.SetPrivateLikes(ans.privateLikes)
+          answer.SetPrivateFavorite(ans.privateFavorite)
+          answer.SetPrivateCommentLink(ans.privateCommentLink) 
+          answers.push(answer)
+        });
+        saveComment.SetPrivateAnswers(answers)
+      }
+
+      comments.push(saveComment)
+
+      if (saveComment.GetPrivateUnic() === this.privateUnic) {
+      if (!userComments) { return }
+      comments = comments.filter(item => item !== saveComment)
       }
     });
-    // let saveComment = new Comment()
-    // saveComment.SetPrivateName(this.privateName)
-    // saveComment.SetPrivateUnic(this.privateUnic)
-    // saveComment.SetPrivateIcon()
-    // saveComment.SetPrivateTimestamp()
-    // saveComment.SetPrivateCreateAt()
-    // saveComment.SetPrivateText()
-    // saveComment.SetPrivateLikes()
-    // saveComment.SetPrivateFavorite()
-    // saveComment.SetPrivateAnswers()
-    userComments.push(this)
+
+    comments.push(this)
+
+    // this.Save(JSON.stringify(userComments))
+    // console.log("comments",comments);
+    
+    localStorage.setItem("comments", JSON.stringify(comments))
 
 
-    this.Save(JSON.stringify(userComments))
   }
 
 
@@ -175,7 +226,7 @@ class Comment extends Storage {
 
     let favoriteBtnTextVal = favoriteBtn.querySelector("p")
     favoriteBtn.addEventListener('click', () => {
-      if (!favoriteBtnTextVal) {return}
+      if (!favoriteBtnTextVal) { return }
       favoriteBtn.classList.toggle("m-favorites")
       if (favoriteBtn.classList.contains("m-favorites")) { // селектор (кнопка "в избранное" нажата) 
         favoriteBtnTextVal.innerHTML = "в избранном"
@@ -199,13 +250,11 @@ class Comment extends Storage {
 
     let counter = <HTMLInputElement>likeBtnWrapper.querySelector("#count")
     let oldCount = +counter.innerHTML // 0
-    
+
 
     likeBtn.addEventListener('click', () => {
       let counter = <HTMLInputElement>likeBtnWrapper.querySelector("#count")
       let count = +counter.innerHTML // 0
-  
-
       let newCount = +count + 1 //1
       if (count - oldCount == 0 || count - oldCount == -1) {
         counter.innerHTML = newCount.toString();
@@ -214,18 +263,18 @@ class Comment extends Storage {
       }
     })
 
-    
+
     disLikeBtn.addEventListener('click', () => {
       let counter = <HTMLInputElement>likeBtnWrapper.querySelector("#count")
       let count = +counter.innerHTML // 0
-  
+
       let newCount = +count - 1 // 0 -1
-      
-      
+
+
       if (count - oldCount == 1 || count - oldCount == 0) {
 
         counter.innerHTML = newCount.toString();
-        
+
         this.privateLikes = newCount
         this.PublicSaveComment()
       }

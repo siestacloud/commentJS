@@ -13,6 +13,8 @@ class Controllers {
   //? Отображение главной страницы 
   public PageMain():void {
     this.privateModels.GetPreviosComments();
+    console.log("===========================================================================================");
+    
     this.privateView.DisplayMain(); //* отображение раздела комментарии (подключение функционала)
   }
 }

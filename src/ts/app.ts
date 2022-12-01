@@ -22,6 +22,7 @@ document.addEventListener("DOMContentLoaded", function () {
   controllers.SetPrivateModels(models)
   controllers.SetPrivateViews(views)
   const app: App = new App()
+  
   app.SetPrivateControllers(controllers)
   app.Init()
 });
