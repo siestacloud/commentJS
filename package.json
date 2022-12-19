@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "http-server -p 5569",
+    "start": "http-server -p 5569 -o ./src/dist",
     "t": "tsc",
     "build": "tsc && webpack",
     "start:dev": "webpack-dev-server"
