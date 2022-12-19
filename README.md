@@ -42,7 +42,7 @@
 git clone  https://github.com/siestacloud/commentJS.git
 cd commentJS/ 
 npm i
-npm build
+npm run build
 yarn run start
 ```
 ---
