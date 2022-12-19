@@ -13,7 +13,7 @@ class Events extends Storage {
     if (!commentBtn) { return }
 
     commentBtn.addEventListener('click', () => {
-
+      
       if (!textAreaElement) { return }
       if (!textAreaElement.value) { return }
       if (!innerHtmlElement) { return }           //* обработка пустого поля ввода 
@@ -22,6 +22,8 @@ class Events extends Storage {
       comment.PuplicDisplayComment(innerHtmlElement)   //* рендер коментария
       comment.PublicSaveComment()                      //* сохранение коментария
       comment.PublicInitBtnShowAnswer()                //* подключение логики формирования ответов на комментарий
+      
+      comment.PuplicDisplayCommentAnswers()            //* рендер ответов на коментарий
       comment.PublicInitBtnMakeFavorite()              //* подключение логики формирования свойства "избранный комментарий"  
       comment.PublicInitBtnMakeLike()                  //* подключение логики формирования лайков/дизлайков на коментарий 
     })
@@ -37,7 +39,6 @@ class Events extends Storage {
     let showHtmlSort: HTMLInputElement | null = document.querySelector(`.mod-button`);
 
     let sortRadioBtns: NodeListOf<HTMLElement> | null = document.getElementsByName('level');
-    console.log(sortRadioBtns);
     
     let sortFavoriteBtn: HTMLInputElement | null = document.querySelector(".j-favorites-show");
 
@@ -82,13 +83,11 @@ class Events extends Storage {
       
       sortRadioBtn.addEventListener('click', () => {
         let comments = this.Load("comments")
-        console.log(comments);
         if (!comments) { return }
         switch (sortRadioBtn.value) {
           case "По дате":
             if (!innerHtmlElementSort) { return }
             innerHtmlElementSort.innerHTML = "По дате"
-            console.log("радио кнопка", sortRadioBtn.value);
             this.DisplayComments(comments.sort(function (x, y) { return x.GetPrivateTimestamp() - y.GetPrivateTimestamp(); }), innerHtmlElement)
             break;
           case "По количеству оценок":
@@ -113,8 +112,8 @@ class Events extends Storage {
     innerHtmlElement.innerHTML = ""
     comments.forEach(comment => {
       comment.PuplicDisplayComment(innerHtmlElement)   //* рендер коментария
-      comment.PuplicDisplayCommentAnswers()            //* рендер ответов на коментарий
       comment.PublicInitBtnShowAnswer()                //* подключение логики формирования ответов на комментарий
+      comment.PuplicDisplayCommentAnswers()            //* рендер ответов на коментарий
       comment.PublicInitBtnMakeFavorite()              //* подключение логики формирования свойства "избранный комментарий"  
       comment.PublicInitBtnMakeLike()                  //* подключение логики формирования лайков/дизлайков на коментарий 
     });

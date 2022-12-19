@@ -78,9 +78,10 @@ class Answer {
       let inputHtmlField = <HTMLInputElement>document.querySelector(".j-answer-input")
       inputHtmlField.remove();                                  //* удаляю форму ввода ответа
       this.PuplicSetAnswer(textAreaElement.value, commentUnic,commentName)  //* заполняю ответ данными и привязывую его к комментарию
-      console.log(this.privateCommentLink);
       this.PuplicDisplayAnswer(wrapper)                         //* рендер коментария
       this.PublicSaveAnswer()
+      this.PublicInitBtnMakeLike()              //* подключение логики формирования свойства "избранный комментарий"  
+
     })
 
   }
@@ -121,7 +122,6 @@ class Answer {
 
 
   PuplicSetAnswer(text: string, commentUnic: number, commentName:string) {
-    console.log(commentUnic);
     this.privateCommentLink = commentUnic
     this.privateCommentName = commentName
     this.privateUnic = Math.random()
@@ -142,10 +142,7 @@ class Answer {
 
   //privateSaveComment добавляю новый комментарий в массив в localStorage
   PublicSaveAnswer() {
-    console.log("добавляю новый ответ в комментарий в массив в localStorage");
-
     let items = <string>localStorage.getItem("comments")
-
     let userComments = <{
       privateUnic: number
       privateText: string
@@ -159,23 +156,16 @@ class Answer {
     }[]>JSON.parse(items)
     if (!userComments) { return }
 
-    console.log("все коментарии в локал стор", userComments);
-
-
     userComments.forEach(comment => {
 
       if (comment.privateUnic == this.privateCommentLink) {
-        console.log("коментарий для этого ответа найден: ", comment);
         let answers = comment.privateAnswers
         if (answers) {
-          console.log("поле ответы у этого комента не пустое: ", answers);
           answers.forEach(answer => {
             if (answer.privateUnic === this.privateUnic) {
-              console.log("Этот ответ уже есть в поле  : ", comment);
               
               if (!answers) { return }
               answers = answers.filter(item => item !== answer)
-              console.log("Удалил ответ из поля с ответами  : ", comment);
             }
           });
           
@@ -186,15 +176,11 @@ class Answer {
         }
 
         
-        
         answers.push(this)
         comment.privateAnswers = answers
-        console.log("добавил ответ в поля с ответами  : ", comment);
-        console.log("comment.privateAnswers", comment.privateAnswers);
 
       }
     });
-    console.log(userComments);
     localStorage.setItem("comments", JSON.stringify(userComments))
   }
 

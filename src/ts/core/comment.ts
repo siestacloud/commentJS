@@ -90,10 +90,13 @@ class Comment {
 
   // PuplicDisplayComment отображение всех отвeтов на коментарий
   PuplicDisplayCommentAnswers() {
+    console.log("TEST");  
+
     let commentHTMLElement = <HTMLInputElement>document.querySelector(`[val="${this.privateUnic}"]`)
     let innerHtmlAnswer = <HTMLInputElement>commentHTMLElement.querySelector(".comments__ans");
     // console.log("innerHtmlAnswer", innerHtmlAnswer);
     // console.log("this.privateAnswers", this.privateAnswers);
+
     if (!this.privateAnswers) { 
       
       return
@@ -216,6 +219,7 @@ class Comment {
     tBtnShowAnswerField.addEventListener('click', () => {
 
       answerShow.PublicDisplayFieldsForAnswer(<HTMLInputElement>tBtnShowAnswerField.parentElement, this.privateUnic,this.privateName)
+      
     });
   }
 
@@ -244,6 +248,7 @@ class Comment {
   }
   //? PublicInitBtnMakeLike определение обработчиков на кнопки "лайк" и "дизлайк" комментария
   PublicInitBtnMakeLike() {
+    
     let commentHtmlEl = <HTMLInputElement>document.querySelector(`[val="${this.privateUnic}"]`)
     let likeBtn = <HTMLInputElement>commentHtmlEl.querySelector(".plus");
 

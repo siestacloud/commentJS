@@ -5,9 +5,6 @@ import Comment from "../core/comment.js";
 class Storage {
 
   public Load(key: string): Comment[] | null {
-
-    // console.log("Storage");
-
     let item = localStorage.getItem(key)
     if (!item) { return null }
     let parseItems = JSON.parse(item)
@@ -34,11 +31,7 @@ class Storage {
       privateCreateAt: string
       privateTimestamp: number
     }) => {
-      // console.log(" элемент из лок", parseItem);
       let c = new Comment()
-      // console.log("новый обьект создан ", c);
-
-
       c.SetPrivateName(parseItem.privateName)
       c.SetPrivateUnic(parseItem.privateUnic)
       c.SetPrivateIcon(parseItem.privateIcon)
@@ -51,10 +44,8 @@ class Storage {
       
       if (parseItem.privateAnswers) {
         
-        console.log(parseItem.privateAnswers);
         let answers: Answer[] = []
         if (parseItem.privateAnswers.length > 0) {
-          console.log(" у эл из локал есть ответы ", parseItem.privateAnswers.length);
 
           parseItem.privateAnswers.forEach(ans => {
             
@@ -69,16 +60,13 @@ class Storage {
             answer.SetPrivateTimestamp(ans.privateTimestamp)
             answer.SetPrivateCommentLink(ans.privateCommentLink)
             answer.SetPrivateCommentName(ans.privateCommentName)
-            // console.log("!");
             answers.push(answer)
 
           });
-          // console.log(" ответы для коментария подгружны  ", answers.length);
         }
         c.SetPrivateAnswers(answers)
       }
       comments.push(c)
-      // console.log("итоговый массив комментариев обновлен ::: ", comments.length);
     });
     return comments
   }

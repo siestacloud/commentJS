@@ -25,7 +25,6 @@ $grey: #B0B0B0;
 // <ОБНУЛЕНИЕ, ОБЩИЕ ПАРАМЕТРЫ>
 @import "_null";
 // </ОБНУЛЕНИЕ, ОБЩИЕ ПАРАМЕТРЫ>
-
 // <ОБОЛОЧКА>
 .wrapper {
   // background-color: $light;
@@ -47,7 +46,7 @@ $grey: #B0B0B0;
     "footer";
   transition: background-color;
   transition-duration: 0.45s;
-  transition-delay: 0.2s;
+  transition-delay: 0.3s;
 
   &__dark {
     background-color: #05111d;

@@ -5,7 +5,9 @@
   "main": "index.js",
   "scripts": {
     "start": "http-server -p 5569",
-    "t":"tsc"
+    "t": "tsc",
+    "build": "webpack",
+    "start:dev": "webpack-dev-server"
   },
   "repository": {
     "type": "git",
@@ -13,7 +15,16 @@
   },
   "author": "Poul Sunny <siesta.cloud@gmail.com>",
   "devDependencies": {
+    "css-loader": "^6.7.2",
+    "css-minimizer-webpack-plugin": "^4.2.2",
     "http-server": "^14.1.1",
-    "typescript": "^4.9.3"
+    "mini-css-extract-plugin": "^2.7.1",
+    "sass": "^1.56.1",
+    "sass-loader": "^13.2.0",
+    "style-loader": "^3.3.1",
+    "typescript": "^4.9.3",
+    "webpack": "^5.75.0",
+    "webpack-cli": "^5.0.0",
+    "webpack-dev-server": "^4.11.1"
   }
 }
