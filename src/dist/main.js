@@ -2,18 +2,6 @@
 /******/ 	"use strict";
 /******/ 	var __webpack_modules__ = ({
 
-/***/ "./src/scss/style.scss":
-/*!*****************************!*\
-  !*** ./src/scss/style.scss ***!
-  \*****************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-__webpack_require__.r(__webpack_exports__);
-// extracted by mini-css-extract-plugin
-
-
-/***/ }),
-
 /***/ "./src/js/controllers/controllers.js":
 /*!*******************************************!*\
   !*** ./src/js/controllers/controllers.js ***!
@@ -843,8 +831,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _controllers_controllers_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./controllers/controllers.js */ "./src/js/controllers/controllers.js");
 /* harmony import */ var _models_models_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./models/models.js */ "./src/js/models/models.js");
 /* harmony import */ var _views_views_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./views/views.js */ "./src/js/views/views.js");
-/* harmony import */ var _scss_style_scss__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../scss/style.scss */ "./src/scss/style.scss");
-
 
 
 

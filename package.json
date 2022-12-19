@@ -6,7 +6,7 @@
   "scripts": {
     "start": "http-server -p 5569",
     "t": "tsc",
-    "build": "webpack",
+    "build": "tsc && webpack",
     "start:dev": "webpack-dev-server"
   },
   "repository": {
